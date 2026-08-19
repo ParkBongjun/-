@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온라인 지원서 작성 - 공식</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "돋움", Dotum, "굴림", Gulim, sans-serif;
+      background-color: #d4d0c8;
+      color: #000;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .top-bar {
+      background: #000080;
+      color: #fff;
+      padding: 4px 10px;
+      font-size: 11px;
+      text-align: right;
+    }
+
+    .header {
+      background: #000080;
+      color: #fff;
+      padding: 10px 15px;
+      border-bottom: 3px solid #0000aa;
+    }
+
+    .header-title { font-size: 18px; font-weight: bold; letter-spacing: -1px; }
+    .header-sub { font-size: 11px; margin-top: 3px; color: #ffff99; }
+
+    .wrap {
+      width: 720px;
+      margin: 15px auto;
+      background: #ffffff;
+      border: 2px solid #808080;
+    }
+
+    .steps {
+      background: #e8e8e8;
+      border-bottom: 1px solid #808080;
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .steps span {
+      display: inline-block;
+      padding: 3px 10px;
+      margin-right: 4px;
+      border: 1px solid #808080;
+      background: #f0f0f0;
+    }
+
+    .steps .active {
+      background: #000080;
+      color: #fff;
+      border-color: #000080;
+      font-weight: bold;
+    }
+
+    .content { padding: 15px 20px; }
+
+    .page-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #000080;
+      border-bottom: 2px solid #000080;
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+    }
+
+    .notice {
+      background: #ffffcc;
+      border: 1px solid #999;
+      padding: 8px 10px;
+      margin-bottom: 15px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .form-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12px;
+    }
+
+    .form-table th {
+      width: 140px;
+      background: #e8e8e8;
+      border: 1px solid #999;
+      padding: 7px 8px;
+      text-align: left;
+      font-weight: bold;
+      vertical-align: middle;
+    }
+
+    .form-table td {
+      border: 1px solid #999;
+      padding: 6px 8px;
+      background: #fff;
+    }
+
+    .form-table input[type="text"],
+    .form-table input[type="number"],
+    .form-table textarea {
+      width: 100%;
+      font-family: "돋움", Dotum, "굴림", Gulim, sans-serif;
+      font-size: 12px;
+      padding: 3px 5px;
+      border: 1px solid #7f9db9;
+      background: #fff;
+    }
+
+    .form-table textarea { height: 90px; resize: vertical; }
+
+    .job-options, .career-options {
+      padding: 4px 0;
+    }
+
+    .job-options label, .career-options label {
+      display: inline-block;
+      margin-right: 18px;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    .job-options input, .career-options input {
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    .required { color: #c00000; font-weight: bold; }
+
+    .error {
+      color: #c00000;
+      font-size: 11px;
+      margin-top: 3px;
+      display: none;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #888;
+      opacity: 0.75;
+      margin-top: 3px;
+    }
+
+    .info-box {
+      background: #f5f5f5;
+      border: 1px solid #999;
+      padding: 8px 10px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .exam-number {
+      background: #000080;
+      color: #ffff00;
+      font-weight: bold;
+      padding: 2px 8px;
+      letter-spacing: 1px;
+    }
+
+    .btn-area {
+      text-align: center;
+      padding: 12px 0 5px;
+      border-top: 1px solid #ccc;
+      margin-top: 10px;
+    }
+
+    .btn {
+      font-family: "돋움", Dotum, "굴림", Gulim, sans-serif;
+      font-size: 12px;
+      padding: 4px 16px;
+      margin: 0 4px;
+      border: 2px outset #d4d0c8;
+      background: #d4d0c8;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .btn:active { border-style: inset; }
+
+    .btn-primary {
+      background: #000080;
+      color: #fff;
+      border-color: #0000aa;
+    }
+
+    .btn-primary:disabled {
+      background: #888;
+      border-color: #666;
+      color: #ddd;
+      cursor: not-allowed;
+    }
+
+    .footer {
+      width: 720px;
+      margin: 10px auto 20px;
+      text-align: center;
+      font-size: 11px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .footer .line {
+      border-top: 1px solid #999;
+      margin: 8px 0;
+    }
+
+    #step2 { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    최종 업데이트 : 2026.08.19
+  </div>
+
+  <div class="header">
+    <div class="header-title">한국정보문화개발원 지원서 작성 시스템</div>
+    <div class="header-sub">KICDI Application Form</div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="steps">
+      <span class="active" id="step-tab-1">1. 기본정보 입력</span>
+      <span id="step-tab-2">2. 지원내용 작성</span>
+    </div>
+
+    <div class="content">
+
+      <!-- 1단계 -->
+      <div id="step1">
+        <div class="page-title">▶ 기본정보 입력</div>
+
+        <div class="notice">
+          ※ 로블록스 닉네임, 디스코드 닉네임, 지원직종은 필수 입력 사항입니다.<br>
+          ※ 지원직종은 한 가지만 선택할 수 있습니다.<br>
+          ※ 입력 후 [다음단계] 버튼을 클릭하시면 수험번호가 발급되며 지원내용 작성 화면으로 이동합니다.
+        </div>
+
+        <table class="form-table">
+          <tr>
+            <th>로블록스 닉네임 <span class="required">*</span></th>
+            <td>
+              <input type="text" id="roblox" maxlength="30" autocomplete="off">
+              <div class="error" id="roblox-error">로블록스 닉네임을 입력하여 주십시오.</div>
+            </td>
+          </tr>
+          <tr>
+            <th>디스코드 닉네임 <span class="required">*</span></th>
+            <td>
+              <input type="text" id="discord" maxlength="40" autocomplete="off">
+              <div class="error" id="discord-error">디스코드 닉네임을 입력하여 주십시오.</div>
+            </td>
+          </tr>
+          <tr>
+            <th>지원직종 <span class="required">*</span></th>
+            <td>
+              <div class="job-options">
+                <label><input type="radio" name="job" value="인사"> 인사정보담당자</label>
+                <label><input type="radio" name="job" value="현장"> 현장직</label>
+                <label><input type="radio" name="job" value="사무"> 사무직</label>
+              </div>
+              <div class="error" id="job-error">지원직종을 선택하여 주십시오.</div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="btn-area">
+          <button class="btn btn-primary" onclick="goToStep2()">다음단계</button>
+        </div>
+      </div>
+
+      <!-- 2단계 -->
+      <div id="step2">
+        <div class="page-title">▶ 지원내용 작성</div>
+
+        <div class="info-box">
+          <b>수험번호 :</b> <span class="exam-number" id="show-examno"></span><br>
+          <b>로블록스 닉네임 :</b> <span id="show-roblox"></span><br>
+          <b>디스코드 닉네임 :</b> <span id="show-discord"></span><br>
+          <b>지원직종 :</b> <span id="show-job"></span>
+        </div>
+
+        <table class="form-table">
+          <tr>
+            <th>1. 자기소개 <span class="required">*</span></th>
+            <td>
+              <textarea id="intro" placeholder="자기소개를 작성하여 주십시오."></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>2. 나이 <span class="required">*</span></th>
+            <td>
+              <input type="number" id="age" min="1" max="100" placeholder="나이를 숫자로 입력하여 주십시오.">
+              <div class="hint">( 추후 면접시 사실확인 예정입니다.)</div>
+            </td>
+          </tr>
+          <tr>
+            <th>3. 경력 <span class="required">*</span></th>
+            <td>
+              <div class="career-options">
+                <label><input type="radio" name="career" value="있음"> 있음</label>
+                <label><input type="radio" name="career" value="없음"> 없음</label>
+              </div>
+              <div class="hint">( 추후 면접시 사실확인 예정입니다.)</div>
+            </td>
+          </tr>
+          <tr>
+            <th>4. 기타사항 <span class="required">*</span></th>
+            <td>
+              <textarea id="etc" placeholder="기타 전달하고 싶은 내용을 작성하여 주십시오."></textarea>
+            </td>
+          </tr>
+        </table>
+
+        <div class="btn-area">
+          <button class="btn btn-primary" id="submitBtn" onclick="submitForm()" disabled>제출하기</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="line"></div>
+    본 시스템은 지원서 접수만을 목적으로 운영됩니다.<br>
+    입력하신 개인정보는 지원 목적 외에 사용되지 않습니다.<br>
+    <div class="line"></div>
+    Copyright ⓒ 1999-2001 Online Application System. All rights reserved.<br>
+    Best viewed with Internet Explorer 5.0 / Netscape 4.7
+  </div>
+
+  <script>
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1533046081188008118/Zozsc4v2GzO2ojdc--VBIK5Yt2uQNzsdq6SEwRGDtLWwkS8lNVDuI8jYA_YuWWfdc22I";
+
+    // 중복 전송 방지 플래그
+    let isSubmitting = false;
+
+    function generateExamNumber(jobCode) {
+      const region = String(Math.floor(Math.random() * 90) + 10);
+      const year = "26";
+      const monthDay = "0819";
+      const serial = String(Math.floor(Math.random() * 900000) + 100000);
+      const check = String(Math.floor(Math.random() * 90) + 10);
+      return region + year + monthDay + serial + check + "-" + jobCode;
+    }
+
+    function getSelectedJob() {
+      const radios = document.getElementsByName('job');
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radios[i].value;
+      }
+      return null;
+    }
+
+    function getJobName(code) {
+      if (code === "인사") return "인사정보담당자";
+      if (code === "현장") return "현장직";
+      if (code === "사무") return "사무직";
+      return "";
+    }
+
+    function getSelectedCareer() {
+      const radios = document.getElementsByName('career');
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radios[i].value;
+      }
+      return null;
+    }
+
+    function checkFormComplete() {
+      const intro = document.getElementById('intro').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const career = getSelectedCareer();
+      const etc = document.getElementById('etc').value.trim();
+
+      const btn = document.getElementById('submitBtn');
+      // 이미 제출 중이면 계속 비활성화
+      if (isSubmitting) {
+        btn.disabled = true;
+        return;
+      }
+      btn.disabled = !(intro && age && career && etc);
+    }
+
+    function goToStep2() {
+      const roblox = document.getElementById('roblox').value.trim();
+      const discord = document.getElementById('discord').value.trim();
+      const jobCode = getSelectedJob();
+      let valid = true;
+
+      document.getElementById('roblox-error').style.display = 'none';
+      document.getElementById('discord-error').style.display = 'none';
+      document.getElementById('job-error').style.display = 'none';
+
+      if (!roblox) { document.getElementById('roblox-error').style.display = 'block'; valid = false; }
+      if (!discord) { document.getElementById('discord-error').style.display = 'block'; valid = false; }
+      if (!jobCode) { document.getElementById('job-error').style.display = 'block'; valid = false; }
+
+      if (!valid) return;
+
+      const examNo = generateExamNumber(jobCode);
+      document.getElementById('show-examno').textContent = examNo;
+      document.getElementById('show-roblox').textContent = roblox;
+      document.getElementById('show-discord').textContent = discord;
+      document.getElementById('show-job').textContent = getJobName(jobCode);
+
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+
+      document.getElementById('step-tab-1').classList.remove('active');
+      document.getElementById('step-tab-2').classList.add('active');
+
+      document.getElementById('intro').addEventListener('input', checkFormComplete);
+      document.getElementById('age').addEventListener('input', checkFormComplete);
+      document.getElementById('etc').addEventListener('input', checkFormComplete);
+      document.getElementsByName('career').forEach(r => r.addEventListener('change', checkFormComplete));
+
+      checkFormComplete();
+    }
+
+    async function submitForm() {
+      // 이미 제출 중이면 즉시 중단 (중복 전송 방지)
+      if (isSubmitting) return;
+
+      const intro = document.getElementById('intro').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const career = getSelectedCareer();
+      const etc = document.getElementById('etc').value.trim();
+
+      if (!intro || !age || !career || !etc) {
+        alert('모든 항목을 입력하여 주십시오.');
+        return;
+      }
+
+      // 제출 시작 → 버튼 즉시 비활성화 + 플래그 설정
+      isSubmitting = true;
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = "제출 중...";
+
+      const examNo = document.getElementById('show-examno').textContent;
+      const roblox = document.getElementById('show-roblox').textContent;
+      const discord = document.getElementById('show-discord').textContent;
+      const job = document.getElementById('show-job').textContent;
+
+      const now = new Date();
+      const timeStr = now.getFullYear() + "-" + 
+                      String(now.getMonth()+1).padStart(2,'0') + "-" + 
+                      String(now.getDate()).padStart(2,'0') + " " +
+                      (now.getHours() < 12 ? "오전" : "오후") + " " +
+                      String(now.getHours() % 12 || 12).padStart(2,'0') + ":" +
+                      String(now.getMinutes()).padStart(2,'0');
+
+      const embed = {
+        title: "[지원서 제출 완료]",
+        color: 0x000080,
+        fields: [
+          { name: "로블록스 닉네임", value: roblox, inline: true },
+          { name: "디스코드 닉네임", value: discord, inline: true },
+          { name: "수험번호", value: examNo, inline: false },
+          { name: "지원직종", value: job, inline: false },
+          { name: "1. 자기소개", value: intro, inline: false },
+          { name: "2. 나이", value: age + "세", inline: true },
+          { name: "3. 경력", value: career, inline: true },
+          { name: "4. 기타사항", value: etc, inline: false }
+        ],
+        footer: {
+          text: "ONLINE APPLICATION SYSTEM v1.0 • " + timeStr
+        }
+      };
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ embeds: [embed] })
+        });
+
+        if (response.ok) {
+          btn.textContent = "제출 완료";
+          alert('제출이 완료되었습니다.\n\n수험번호 : ' + examNo + '\n정상적으로 접수되었습니다.');
+        } else {
+          // 실패 시에만 다시 활성화
+          isSubmitting = false;
+          btn.disabled = false;
+          btn.textContent = "제출하기";
+          alert('전송 중 오류가 발생했습니다. 다시 시도해 주십시오.');
+        }
+      } catch (err) {
+        isSubmitting = false;
+        btn.disabled = false;
+        btn.textContent = "제출하기";
+        alert('전송 중 오류가 발생했습니다.\n인터넷 연결을 확인해 주십시오.');
+      }
+    }
+
+    document.getElementById('roblox').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') document.getElementById('discord').focus();
+    });
+    document.getElementById('discord').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') goToStep2();
+    });
+  </script>
+</body>
+</html>
